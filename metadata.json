@@ -1,0 +1,6 @@
+{
+  "name": "سحابة النسخ الاحتياطي للأندرويد - Android Personal Cloud Backup",
+  "description": "منظومة النسخ الاحتياطي التلقائي لسجل المكالمات ورسائل SMS عبر واجهات Android الرسمية مع مستعرض التخزين السحابي ومشروع Kotlin متكامل قابل للبناء",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

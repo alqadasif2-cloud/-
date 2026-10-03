@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- مسارات تقارير النسخ الاحتياطي والمزامنة المصدرة للمشاركة -->
+    <cache-path name="backup_reports" path="reports/" />
+    <cache-path name="shared_backups" path="backups/" />
+    <!-- مسار ملفات التطبيق الداخلية الآمنة -->
+    <files-path name="app_files" path="." />
+</paths>

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F1F5F9"/>
+    </linearGradient>
+
+    <!-- Cloud Primary Gradient -->
+    <linearGradient id="cloudGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="50%" stop-color="#1D4ED8"/>
+      <stop offset="100%" stop-color="#1E40AF"/>
+    </linearGradient>
+
+    <!-- Sync Arrow Gradient -->
+    <linearGradient id="syncGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+
+    <!-- Shield Glow Gradient -->
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+
+    <!-- Subtle Drop Shadow -->
+    <filter id="dropShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#1E3A8A" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- Base Squircle Background -->
+  <rect x="16" y="16" width="480" height="480" rx="108" fill="url(#bgGrad)" stroke="#E2E8F0" stroke-width="4"/>
+
+  <!-- Main Material Cloud with Shadow -->
+  <g filter="url(#dropShadow)">
+    <path fill="url(#cloudGrad)" d="M372 352 H152 C108 352 72 316 72 272 C72 233 100 200 138 193 C148 136 198 96 256 96 C322 96 376 148 379 214 C414 219 440 249 440 286 C440 322 410 352 372 352 Z"/>
+  </g>
+
+  <!-- Synchronization Loop (Material 3 Circular Dual Arrows) -->
+  <g transform="translate(256, 236)">
+    <!-- Top Arc Arrow -->
+    <path d="M -48,-12 A 52 52 0 0 1 48,-12" fill="none" stroke="url(#syncGrad)" stroke-width="14" stroke-linecap="round"/>
+    <polygon points="42,-26 58,-12 42,2" fill="#FFFFFF"/>
+
+    <!-- Bottom Arc Arrow -->
+    <path d="M 48,12 A 52 52 0 0 1 -48,12" fill="none" stroke="url(#syncGrad)" stroke-width="14" stroke-linecap="round"/>
+    <polygon points="-42,26 -58,12 -42,-2" fill="#FFFFFF"/>
+
+    <!-- Center Security Dot / Core -->
+    <circle cx="0" cy="0" r="14" fill="url(#shieldGrad)"/>
+    <circle cx="0" cy="0" r="6" fill="#FFFFFF"/>
+  </g>
+</svg>

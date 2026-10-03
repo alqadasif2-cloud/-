@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.personal.cloudbackup">
+
+    <!-- الصلاحيات الرسمية المصرح بها وفق Android SDK فقط بدون أي صلاحية غير ضرورية -->
+    <!-- 1. قراءة سجل المكالمات (Call Log) -->
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+
+    <!-- 2. قراءة الرسائل النصية القصيرة (SMS) والمحادثات -->
+    <uses-permission android:name="android.permission.READ_SMS" />
+
+    <!-- 3. قراءة أسماء جهات الاتصال المرتبطة بالأرقام لربطها بالسجلات -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!-- 4. الاتصال بالإنترنت لمزامنة البيانات مع السحابة الخاصة -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- 5. التحقق من حالة الاتصال بالشبكة (واي فاي أو بيانات الهاتف) لمطابقة قيود WorkManager -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- 6. استئناف جدولة المزامنة التلقائية عند إعادة تشغيل الهاتف -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:name=".CloudBackupApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CloudBackup.WhiteScreen"
+        android:usesCleartextTraffic="false"
+        tools:targetApi="34">
+
+        <!-- واجهة التطبيق: شاشة بيضاء فارغة تماماً بدون أزرار أو عناصر -->
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.CloudBackup.WhiteScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- مستقبل إعادة التشغيل الرسمي لاستئناف الجدولة في الخلفية -->
+        <receiver
+            android:name=".receiver.BootCompletedReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+        <!-- موفر الملفات الرسمي FileProvider لمشاركة التقارير والبيانات بشكل آمن دون FileUriExposedException -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+
+</manifest>

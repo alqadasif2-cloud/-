@@ -1,0 +1,90 @@
+{
+  "entities": {
+    "CallRecord": {
+      "title": "CallRecord",
+      "description": "سجل مكالمة متزامن من هاتف أندرويد",
+      "type": "object",
+      "properties": {
+        "androidId": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "contactName": { "type": "string" },
+        "callType": { "type": "string" },
+        "rawType": { "type": "number" },
+        "timestamp": { "type": "number" },
+        "durationSeconds": { "type": "number" },
+        "geocodedLocation": { "type": "string" },
+        "hash": { "type": "string" },
+        "uploadedAt": { "type": "number" }
+      },
+      "required": ["androidId", "phoneNumber", "timestamp", "hash"]
+    },
+    "SmsConversation": {
+      "title": "SmsConversation",
+      "description": "خيط محادثة رسائل قصيرة SMS",
+      "type": "object",
+      "properties": {
+        "threadId": { "type": "string" },
+        "participantAddress": { "type": "string" },
+        "participantName": { "type": "string" },
+        "messageCount": { "type": "number" },
+        "lastMessageTimestamp": { "type": "number" },
+        "lastUpdated": { "type": "number" }
+      },
+      "required": ["threadId", "participantAddress", "lastMessageTimestamp"]
+    },
+    "SmsMessage": {
+      "title": "SmsMessage",
+      "description": "رسالة نصية قصيرة SMS",
+      "type": "object",
+      "properties": {
+        "androidId": { "type": "string" },
+        "threadId": { "type": "string" },
+        "address": { "type": "string" },
+        "contactName": { "type": "string" },
+        "body": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "direction": { "type": "string" },
+        "rawType": { "type": "number" },
+        "isRead": { "type": "boolean" },
+        "hash": { "type": "string" },
+        "uploadedAt": { "type": "number" }
+      },
+      "required": ["androidId", "threadId", "body", "timestamp", "hash"]
+    },
+    "BackupSession": {
+      "title": "BackupSession",
+      "description": "جلسة نسخ احتياطي ومزامنة",
+      "type": "object",
+      "properties": {
+        "deviceId": { "type": "string" },
+        "deviceModel": { "type": "string" },
+        "androidVersion": { "type": "string" },
+        "syncTimestamp": { "type": "number" },
+        "newCallsCount": { "type": "number" },
+        "newSmsCount": { "type": "number" },
+        "totalSyncedItems": { "type": "number" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["deviceId", "syncTimestamp", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/call_logs/{recordHash}": {
+      "schema": "CallRecord",
+      "description": "سجلات المكالمات الخاصة بالمستخدم، مفهرسة ببصمة الهاش لمنع التكرار"
+    },
+    "/users/{userId}/sms_conversations/{threadId}": {
+      "schema": "SmsConversation",
+      "description": "محادثات الـ SMS الخاصة بالمستخدم"
+    },
+    "/users/{userId}/sms_conversations/{threadId}/messages/{recordHash}": {
+      "schema": "SmsMessage",
+      "description": "رسائل المحادثة مفهرسة ببصمة الهاش"
+    },
+    "/users/{userId}/backup_sessions/{sessionId}": {
+      "schema": "BackupSession",
+      "description": "سجل جلسات المزامنة وتاريخ تنفيذها"
+    }
+  }
+}

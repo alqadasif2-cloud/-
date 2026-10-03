@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // مسارات الفحص والتحقق الصحي
+    match /_health_checks/{checkId} {
+      allow read, write: if true;
+    }
+
+    match /_integration_tests/{testId} {
+      allow read, write: if true;
+    }
+
+    // حسابات التطبيق المشفرة
+    match /app_accounts/{username} {
+      allow read, write: if true;
+    }
+
+    // بيانات النسخ الاحتياطي لكل مستخدم (المكالمات، الرسائل، البيانات الوصفية)
+    match /users/{userId}/{allSubcollections=**} {
+      allow read, write: if true;
+    }
+
+    // الإغلاق الأمني لأي مسارات أخرى غير معرفة
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
